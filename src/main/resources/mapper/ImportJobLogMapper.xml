@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.importer.mapper.ImportJobLogMapper">
+
+    <insert id="insert" parameterType="com.example.importer.domain.ImportJobLog" useGeneratedKeys="true" keyProperty="id">
+        insert into import_job_log(job_id, job_code, trigger_type, status, message, started_at)
+        values(#{jobId}, #{jobCode}, #{triggerType}, #{status}, #{message}, #{startedAt})
+    </insert>
+
+    <update id="updateStatus" parameterType="com.example.importer.domain.ImportJobLog">
+        update import_job_log
+        set status = #{status},
+            message = #{message},
+            total_lines = #{totalLines},
+            success_lines = #{successLines},
+            failed_lines = #{failedLines},
+            duration_ms = #{durationMs},
+            finished_at = #{finishedAt}
+        where id = #{id}
+    </update>
+</mapper>
